@@ -1,0 +1,13 @@
+Package: contamMix
+Type: Package
+Title: Mitochondrial genome contamination estimation
+Version: 1.0-10
+Date: 2014-1-16
+Author: Philip Johnson
+Maintainer: Philip Johnson <plfjohnson@emory.edu>
+Description: Estimates contaminant/authentic mixture proportions in mitochondrial sequence data for a set of potential contaminant genomes.
+Imports: parallel, coda, getopt
+SystemRequirements: perl
+License: GPL-3
+Packaged: 2019-05-09 20:09:10 UTC; pjohnson
+NeedsCompilation: yes

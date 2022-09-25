@@ -1,0 +1,39 @@
+v1.0-10 -- 16 Jan 2014
+  - add trivial configure script to twiddle shebang in exec/estimate.R
+
+v1.0-9 -- 14 Nov 2013
+  - rename --save option to estimate.R to avoid accidental partial
+    matching to --saveMN
+
+v1.0-8 -- 13 Nov 2013
+  - added option to save MN intermediate file.
+  - warn to stderr on any read at least 30bp long with >50% mismatches
+  - bug fix: regression introduced in 1.0-7 with R contamMix class not
+    being maintained
+
+v1.0-7 -- 6 Nov 2013
+  - added option to trim a given number of bases from the ends of each read (another way of avoiding problems from deamination).
+
+v1.0-6 -- 29 Oct 2013
+  - bug fix: not marking indels in multiple align if aligned to ambiguity character (e.g., N)
+
+v1.0-5 -- 15 Jul 2013
+  - issue error if potential contamination sequences appear unaligned (i.e. of different lengths)
+  - expose --transverOnly option for restricting to transversion sites
+
+v1.0-4 -- 26 Jun 2013
+  - display estimated error rate in figure output
+
+v1.0-3 -- 18 Jun 2013
+  - halt execution if estimate error rate is >15% -- this is
+    implausibly high and likely signals an alignment error.
+
+v1.0-2 -- 12 Jun 2013
+  - add --baseq parameter to estimate.R
+  - more informative error message if using -baseq and BAM has no q scores
+  - better error messages if BAM mapping is invalid
+
+v1.0-1 -- 7 Jun 2013
+  - Bug fix in estimate.R (had some incorrect parameter names)
+  - More informative i/o error messages in sam2mn.pl
+  - add --consId parameter to estimate.R (if name used as BAM reference differs from that used in alignment)

@@ -1,0 +1,4 @@
+# trivial script to set shebang in exec/estimate.R
+
+(echo '#!'`which Rscript`; cat exec/estimate.R) > exec/_estimate.R
+mv exec/_estimate.R exec/estimate.R
