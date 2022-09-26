@@ -1,3 +1,7 @@
+v1.0-11 -- 26 Sep 2022
+  - explicit calls to contamMix S3 class functions to avoid errors in certain newer versions of R.
+  - more flexible multithreading, for compatibility with HPCs.
+
 v1.0-10 -- 16 Jan 2014
   - add trivial configure script to twiddle shebang in exec/estimate.R
 
