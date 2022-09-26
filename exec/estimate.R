@@ -64,7 +64,7 @@ data = loadSAM(samFn=opt$samFn, malnFn=opt$malnFn, endogId=opt$consId, baseqThre
 res = runChains(nChains=opt$nChains, nIter=opt$nIter, data=data, alpha=opt$alpha)
 
 ## results in text format
-print(res, tabDelim=opt$tabOutput)
+print.contamMix(res, tabDelim=opt$tabOutput)
 
 ## binary save of results
 if (!is.null(opt$saveData)) {
@@ -81,7 +81,7 @@ if (!is.null(opt$figure)) {
   
   dev.new(file=opt$figure, width=4, height=6, pointsize=10)
   par(mfrow=c(3,1), cex=1, mex=0.5, mar=c(5,5,1,1), oma=c(0,0,3,0))
-  plot(res, which=1:3)
+  plot.contamMix(res, which=1:3)
   mtext(opt$samFn, side=3, line=1, outer=TRUE, font=2)
   mtext(bquote(paste("(", epsilon, " = ", .(signif(res$e,2)), ")")), side=3, line=-1, outer=TRUE)
   invisible(dev.off())
