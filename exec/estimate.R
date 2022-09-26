@@ -1,7 +1,6 @@
 library(contamMix)
 library(getopt)
-options(mc.cores = parallel::detectCores())
-
+# options(mc.cores = parallel::detectCores()) ## Original behaviour of using all available cores.
 
 ## load arguments from command line (if any) & set defaults
 opt = getopt(rbind(
@@ -18,7 +17,8 @@ opt = getopt(rbind(
   c('saveData', NA, 1, "character"),#save MCMC data for manual diag
   c('saveMN', NA, 0, "logical"),    #save MN intermediate for debugging
   c('recordAll', NA, 0, "logical"), #record *all* proportions from MCMC chain
-  c('tabOutput', NA, 0, "logical")) #simple tab-delimited output
+  c('tabOutput', NA, 0, "logical"), #simple tab-delimited output
+  c('nrThreads', NA, 1, "integer")) # Number of threads to use. Defaults to 1. 
   )
 if (is.null(opt$nIter))  opt$nIter = 50000
 if (is.null(opt$nChains)) opt$nChains = 3
@@ -27,6 +27,7 @@ if (is.null(opt$baseq)) opt$baseq = 30; if (opt$baseq == 0) opt$baseq = NULL
 if (is.null(opt$recordAll)) opt$recordAll = FALSE
 if (is.null(opt$saveMN)) opt$saveMN = FALSE
 if (is.null(opt$tabOutput)) opt$tabOutput = FALSE
+if (is.null(opt$nrThreads)) opt$nrThreads = 1
 
 if (!interactive()  &&  (is.null(opt$samFn)  ||  is.null(opt$malnFn))) {
   cat("Usage: ./estimate.R --samFn <data.sam>  --malnFn <alignment.fa> [--nIter <50000>] [--nChains <3>] [--alpha <0.1>] [--figure <outputfigure.pdf>] [--baseq <30>] [--transverOnly] [--trimBases <0>] [--saveMN] [--tabOutput] ...\n\n",
@@ -44,10 +45,16 @@ if (!interactive()  &&  (is.null(opt$samFn)  ||  is.null(opt$malnFn))) {
       "\t--trimBases --> trim this # of bases from ends of sequence (reducing effect of aDNA damage)\n",
       "\t--saveData --> save chain data to specified file (in .Rdata format) for manual diagnostics\n",
       "\t--saveMN --> save MN intermediate file for manual debugging (will use filename '<samFn>.mn')\n",
+      "\t--nrThreads --> The number of threads to use. Defaults to 1. If a number higher than the available threads is used, the maximum available number of threads will be used instead.\n",
       "\t--tabOutput --> output a single line of text with the following tab-separated values: <inferred-error-rate> <MAP-authentic> <2.5% authentic> <97.5% authentic> <gelman diagnostic> <gelman diag upper bound>\n\n")
   cat("NOTE: Not converged if Gelman diagnostic >1.1.  Initial runs on any new data should request a --figure to visually check that the Markov chain is well-behaved.\n\n")
   q()
 }
+
+## Use minimum of max available cores and given threads. Avoids overspecifying of cores, and hogging an entire HPC.
+used_cores = min(parallel::detectCores(), opt$nrThreads)
+options(mc.cores = used_cores)
+cat(paste0("Using ",used_cores, " threads.\n"), file=stderr())
 
 ## test only
 #data = loadSAM(samFn="~/data/emh/mt_only/Paglicci23_sequence_merged_quality_Monly-human_MT.sort.q30_l35_uniq.bam", malnFn="~/data/emh/mt_only/aln.mafft", opt$alnFn, endogId="Paglicci23"
