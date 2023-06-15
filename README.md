@@ -1,7 +1,7 @@
 # contamMix
 Contamination estimation from mitochondrial ancient DNA
 
-This repository contains code to generate a R package ("contamMix") that implements a mixture-model used to estimation contamination in ancient  mitochondrial DNA using MCMC.  The model is detailed in supplementary information 5 ("Likelihood-based method for contamination estimation") of the following paper, which remains the best citation if using this method in a publication:
+This repository contains code to generate a R package ("contamMix") that implements a mixture-model used to estimate contamination in ancient mitochondrial DNA using MCMC.  The model is detailed in supplementary information 5 ("Likelihood-based method for contamination estimation") of the following paper, which remains the best citation if using this method in a publication:
 
 > Fu Q, Mittnik A, Johnson PLF, Bos K, Lari M, Bollongino R, Sun C, Giemsch L, Schmitz R, Burger J, Ronchitelli AM, Martini F, Cremonesi RG, Svoboda J, Bauer P, Caramelli D, Castellano S, Reich D, Pääbo S, and Krause J. (2013). A revised timescale for human evolution based on ancient mitochondrial genomes. *Curr Biol*, 23:553-9. [[doi]](http://dx.doi.org/10.1016/j.cub.2013.02.044)
 
